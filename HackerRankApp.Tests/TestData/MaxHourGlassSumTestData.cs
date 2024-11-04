@@ -2,8 +2,8 @@
 {
 	public class MaxHourGlassSumTestData : TheoryData<List<List<int>>, int>
 	{
-        public MaxHourGlassSumTestData()
-        {
+		public MaxHourGlassSumTestData()
+		{
 			Add([
 				[1, 1, 1, 0, 0, 0],
 				[0, 1, 0, 0, 0, 0],
@@ -12,6 +12,6 @@
 				[0, 0, 0, -2, 0, 0],
 				[0, 0, -1, -2, -4, 0],
 				], 13);
-        }
-    }
+		}
+	}
 }

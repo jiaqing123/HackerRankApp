@@ -1,9 +1,9 @@
 ﻿namespace HackerRankApp.Tests.TestData
 {
-	public class RepeatedStringTestData : TheoryData<string,long,long>
+	public class RepeatedStringTestData : TheoryData<string, long, long>
 	{
-        public RepeatedStringTestData()
-        {
+		public RepeatedStringTestData()
+		{
 			Add("abcac", 10, 4);
 			Add("aba", 10, 7);
 			Add("aba", 0, 0);
@@ -21,5 +21,5 @@
 			Add("aabaabc", 10, 6);
 			Add("aabaaba", 10, 7);
 		}
-    }
+	}
 }

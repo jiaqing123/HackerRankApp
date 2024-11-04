@@ -1,8 +1,8 @@
 ﻿using HackerRankApp.InProgress;
 
-namespace HackerRankApp.Tests
+namespace HackerRankApp.Tests.InProgress
 {
-    public class TurnstileTests
+	public class TurnstileTests
 	{
 		[Fact]
 		public void Run_01()
