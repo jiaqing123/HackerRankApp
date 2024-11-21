@@ -1,4 +1,4 @@
-﻿namespace HackerRankApp.Tests
+﻿namespace HackerRankApp.Tests.Algorithm
 {
 	public class Surface3DAreaTests
 	{
