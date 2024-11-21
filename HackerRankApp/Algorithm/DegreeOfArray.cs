@@ -1,41 +1,40 @@
-﻿namespace HackerRankApp.Algorithm
+﻿namespace HackerRankApp.Algorithm;
+
+public static class DegreeOfArray
 {
-	public static class DegreeOfArray
+	public static int Run(List<int> arr)
 	{
-		public static int Run(List<int> arr)
+		var grps = arr.GroupBy(i => i)
+			.ToDictionary(i => i.Key, i => i.Count());
+
+		var max = grps.Max(i => i.Value);
+
+		var digits = grps.Where(i => i.Value == max);
+
+		var lengths = new List<int>();
+
+		foreach (var digit in digits)
 		{
-			var grps = arr.GroupBy(i => i)
-				.ToDictionary(i => i.Key, i => i.Count());
+			var indexes = new List<int>();
 
-			var max = grps.Max(i => i.Value);
-
-			var digits = grps.Where(i => i.Value == max);
-
-			var lengths = new List<int>();
-
-			foreach (var digit in digits)
+			_ = arr.Where((e, i) =>
 			{
-				var indexes = new List<int>();
-
-				_ = arr.Where((e, i) =>
+				if (e == digit.Key)
 				{
-					if (e == digit.Key)
-					{
-						indexes.Add(i);
+					indexes.Add(i);
 
-						return true;
-					}
+					return true;
+				}
 
-					return false;
-				}).ToList();
+				return false;
+			}).ToList();
 
-				var start = indexes.Min();
-				var end = indexes.Max();
+			var start = indexes.Min();
+			var end = indexes.Max();
 
-				lengths.Add(end - start + 1);
-			}
-
-			return lengths.Min();
+			lengths.Add(end - start + 1);
 		}
+
+		return lengths.Min();
 	}
 }

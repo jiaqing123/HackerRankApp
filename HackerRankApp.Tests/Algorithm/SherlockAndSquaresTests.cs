@@ -1,15 +1,14 @@
-﻿namespace HackerRankApp.Tests.Algorithm
-{
-	public class SherlockAndSquaresTests
-	{
-		[Theory]
-		[ClassData(typeof(SherlockAndSquaresTestData))]
-		public void CountSquareIntegers_InputValid_NotThrowException(int lower, int upper, int expectation)
-		{
-			var handleTask = () => SherlockAndSquares.CountSquareIntegers(lower, upper);
+﻿namespace HackerRankApp.Tests.Algorithm;
 
-			handleTask.Should().NotThrow()
-				.Which.Should().Be(expectation);
-		}
+public class SherlockAndSquaresTests
+{
+	[Theory]
+	[ClassData(typeof(SherlockAndSquaresTestData))]
+	public void CountSquareIntegers_InputValid_NotThrowException(int lower, int upper, int expectation)
+	{
+		var handleTask = () => SherlockAndSquares.CountSquareIntegers(lower, upper);
+
+		handleTask.Should().NotThrow()
+			.Which.Should().Be(expectation);
 	}
 }

@@ -1,31 +1,30 @@
-﻿namespace HackerRankApp.Tests.Algorithm
+﻿namespace HackerRankApp.Tests.Algorithm;
+
+public class StrangeCounterTests
 {
-	public class StrangeCounterTests
+	[Fact]
+	public void Run_01()
 	{
-		[Fact]
-		public void Run_01()
-		{
-			long time = 4L;
+		long time = 4L;
 
-			long expectation = 6L;
+		long expectation = 6L;
 
-			var handleTask = () => StrangeCounter.Run(time);
+		var handleTask = () => StrangeCounter.Run(time);
 
-			handleTask.Should().NotThrow()
-				.Which.Should().Be(expectation);
-		}
+		handleTask.Should().NotThrow()
+			.Which.Should().Be(expectation);
+	}
 
-		[Fact]
-		public void Run_02()
-		{
-			long time = 17L;
+	[Fact]
+	public void Run_02()
+	{
+		long time = 17L;
 
-			long expectation = 5L;
+		long expectation = 5L;
 
-			var handleTask = () => StrangeCounter.Run(time);
+		var handleTask = () => StrangeCounter.Run(time);
 
-			handleTask.Should().NotThrow()
-				.Which.Should().Be(expectation);
-		}
+		handleTask.Should().NotThrow()
+			.Which.Should().Be(expectation);
 	}
 }

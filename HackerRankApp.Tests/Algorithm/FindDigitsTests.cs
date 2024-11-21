@@ -1,15 +1,14 @@
-﻿namespace HackerRankApp.Tests.Algorithm
-{
-	public class FindDigitsTests
-	{
-		[Theory]
-		[ClassData(typeof(FindDigitsTestData))]
-		public void GetDivisorCount_InputValid_NotThrowException(int number, int expectation)
-		{
-			var handleTask = () => FindDigits.GetDivisorCount(number);
+﻿namespace HackerRankApp.Tests.Algorithm;
 
-			handleTask.Should().NotThrow()
-				.Which.Should().Be(expectation);
-		}
+public class FindDigitsTests
+{
+	[Theory]
+	[ClassData(typeof(FindDigitsTestData))]
+	public void GetDivisorCount_InputValid_NotThrowException(int number, int expectation)
+	{
+		var handleTask = () => FindDigits.GetDivisorCount(number);
+
+		handleTask.Should().NotThrow()
+			.Which.Should().Be(expectation);
 	}
 }

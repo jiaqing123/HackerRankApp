@@ -1,14 +1,13 @@
-﻿namespace HackerRankApp.Tests.TestData
+﻿namespace HackerRankApp.Tests.TestData;
+
+public class FindDigitsTestData : TheoryData<int, int>
 {
-	public class FindDigitsTestData : TheoryData<int, int>
+	public FindDigitsTestData()
 	{
-		public FindDigitsTestData()
-		{
-			Add(124, 3);
-			Add(111, 3);
-			Add(10, 1);
-			Add(12, 2);
-			Add(1012, 3);
-		}
+		Add(124, 3);
+		Add(111, 3);
+		Add(10, 1);
+		Add(12, 2);
+		Add(1012, 3);
 	}
 }

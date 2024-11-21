@@ -1,15 +1,14 @@
-﻿namespace HackerRankApp.Tests.Algorithm
-{
-	public class AcmIcpcTeamTests
-	{
-		[Theory]
-		[ClassData(typeof(AcmIcpcTeamTestData))]
-		public void Run_InputValid_NotThrowException(List<string> topics, List<int> expectation)
-		{
-			var handleTask = () => AcmIcpcTeam.Run(topics);
+﻿namespace HackerRankApp.Tests.Algorithm;
 
-			handleTask.Should().NotThrow()
-				.Which.Should().BeEquivalentTo(expectation, opts => opts.WithStrictOrdering());
-		}
+public class AcmIcpcTeamTests
+{
+	[Theory]
+	[ClassData(typeof(AcmIcpcTeamTestData))]
+	public void Run_InputValid_NotThrowException(List<string> topics, List<int> expectation)
+	{
+		var handleTask = () => AcmIcpcTeam.Run(topics);
+
+		handleTask.Should().NotThrow()
+			.Which.Should().BeEquivalentTo(expectation, opts => opts.WithStrictOrdering());
 	}
 }

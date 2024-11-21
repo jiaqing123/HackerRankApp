@@ -1,66 +1,65 @@
 ﻿using System.Text;
 
-namespace HackerRankApp.Algorithm
+namespace HackerRankApp.Algorithm;
+
+/// <summary>
+/// https://www.hackerrank.com/challenges/caesar-cipher-1/problem
+/// </summary>
+public static class CaesarCipher
 {
-	/// <summary>
-	/// https://www.hackerrank.com/challenges/caesar-cipher-1/problem
-	/// </summary>
-	public static class CaesarCipher
+	private static readonly CharRange EmptyRange = new('0', '0');
+	private static readonly CharRange LowerRange = new('a', 'z');
+	private static readonly CharRange UpperRange = new('A', 'Z');
+
+	private class CharRange(char start, char end)
 	{
-		private static readonly CharRange EmptyRange = new('0', '0');
-		private static readonly CharRange LowerRange = new('a', 'z');
-		private static readonly CharRange UpperRange = new('A', 'Z');
+		public char Start { get; } = start;
 
-		private class CharRange(char start, char end)
+		public char End { get; } = end;
+
+		public int Count { get; } = end - start + 1;
+	}
+
+	public static string Run(string clearText, int rotationFactor)
+	{
+		if (!Verify(clearText, rotationFactor)) return clearText;
+
+		var builder = new StringBuilder();
+
+		foreach (char chr in clearText)
 		{
-			public char Start { get; } = start;
+			var range = GetRange(chr);
 
-			public char End { get; } = end;
-
-			public int Count { get; } = end - start + 1;
+			builder.Append(CipherChar(chr, range, rotationFactor));
 		}
 
-		public static string Run(string clearText, int rotationFactor)
-		{
-			if (!Verify(clearText, rotationFactor)) return clearText;
+		return builder.ToString();
+	}
 
-			var builder = new StringBuilder();
+	private static char CipherChar(char chr, CharRange range, int rotationFactor)
+	{
+		if (range == EmptyRange) return chr;
 
-			foreach (char chr in clearText)
-			{
-				var range = GetRange(chr);
+		var ciphered = (chr - range.Start + rotationFactor) % range.Count;
 
-				builder.Append(CipherChar(chr, range, rotationFactor));
-			}
+		return (char)(range.Start + ciphered);
+	}
 
-			return builder.ToString();
-		}
+	private static CharRange GetRange(char chr)
+	{
+		if (chr >= LowerRange.Start && chr <= LowerRange.End) return LowerRange;
 
-		private static char CipherChar(char chr, CharRange range, int rotationFactor)
-		{
-			if (range == EmptyRange) return chr;
+		if (chr >= UpperRange.Start && chr <= UpperRange.End) return UpperRange;
 
-			var ciphered = (chr - range.Start + rotationFactor) % range.Count;
+		return EmptyRange;
+	}
 
-			return (char)(range.Start + ciphered);
-		}
+	private static bool Verify(string clearText, int rotationFactor)
+	{
+		if (string.IsNullOrEmpty(clearText)) return false;
 
-		private static CharRange GetRange(char chr)
-		{
-			if (chr >= LowerRange.Start && chr <= LowerRange.End) return LowerRange;
+		if (rotationFactor < 0) return false;
 
-			if (chr >= UpperRange.Start && chr <= UpperRange.End) return UpperRange;
-
-			return EmptyRange;
-		}
-
-		private static bool Verify(string clearText, int rotationFactor)
-		{
-			if (string.IsNullOrEmpty(clearText)) return false;
-
-			if (rotationFactor < 0) return false;
-
-			return true;
-		}
+		return true;
 	}
 }

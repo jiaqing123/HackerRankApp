@@ -1,18 +1,17 @@
-﻿namespace HackerRankApp.Tests.Algorithm
+﻿namespace HackerRankApp.Tests.Algorithm;
+
+public class DuplicatedStringElementTests
 {
-	public class DuplicatedStringElementTests
+	[Fact]
+	public void Run_InputValid_NoThrowException()
 	{
-		[Fact]
-		public void Run_InputValid_NoThrowException()
-		{
-			List<string> arr = ["wood", "metal", "concrete", "glass", "brick", "ceramic", "plastic", "metal", "fiber", "steel", "aluminum", "rubber", "granite", "stone", "copper", "brass", "silver", "gold", "platinum", "concrete"];
+		List<string> arr = ["wood", "metal", "concrete", "glass", "brick", "ceramic", "plastic", "metal", "fiber", "steel", "aluminum", "rubber", "granite", "stone", "copper", "brass", "silver", "gold", "platinum", "concrete"];
 
-			var expected = false;
+		var expected = false;
 
-			var handleTask = () => DuplicatedStringElement.IsStringDuplicated(arr);
+		var handleTask = () => DuplicatedStringElement.IsStringDuplicated(arr);
 
-			handleTask.Should().NotThrow()
-				.Which.Should().Be(expected);
-		}
+		handleTask.Should().NotThrow()
+			.Which.Should().Be(expected);
 	}
 }

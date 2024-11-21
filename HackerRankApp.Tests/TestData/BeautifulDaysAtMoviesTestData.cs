@@ -1,10 +1,9 @@
-﻿namespace HackerRankApp.Tests.TestData
+﻿namespace HackerRankApp.Tests.TestData;
+
+public class BeautifulDaysAtMoviesTestData : TheoryData<int, int, int, int>
 {
-	public class BeautifulDaysAtMoviesTestData : TheoryData<int, int, int, int>
+	public BeautifulDaysAtMoviesTestData()
 	{
-		public BeautifulDaysAtMoviesTestData()
-		{
-			Add(20, 23, 6, 2);
-		}
+		Add(20, 23, 6, 2);
 	}
 }

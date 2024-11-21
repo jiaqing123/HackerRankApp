@@ -1,26 +1,25 @@
-﻿namespace HackerRankApp.Algorithm
+﻿namespace HackerRankApp.Algorithm;
+
+/// <summary>
+/// https://www.hackerrank.com/challenges/circular-array-rotation/problem
+/// </summary>
+public static class CircularArrayRotation
 {
-	/// <summary>
-	/// https://www.hackerrank.com/challenges/circular-array-rotation/problem
-	/// </summary>
-	public static class CircularArrayRotation
+	public static List<int> GetRotatedValues(List<int> values, int shiftCount, List<int> queries)
 	{
-		public static List<int> GetRotatedValues(List<int> values, int shiftCount, List<int> queries)
+		var shifts = shiftCount % values.Count;
+
+		var rotatedValues = values.GetRange(values.Count - shifts, shifts)
+				.Concat(values.GetRange(0, values.Count - shifts))
+				.ToList();
+
+		if (queries.Any())
 		{
-			var shifts = shiftCount % values.Count;
-
-			var rotatedValues = values.GetRange(values.Count - shifts, shifts)
-					.Concat(values.GetRange(0, values.Count - shifts))
-					.ToList();
-
-			if (queries.Any())
-			{
-				return queries.Select(i => rotatedValues[i]).ToList();
-			}
-			else
-			{
-				return new List<int>();
-			}
+			return queries.Select(i => rotatedValues[i]).ToList();
+		}
+		else
+		{
+			return new List<int>();
 		}
 	}
 }

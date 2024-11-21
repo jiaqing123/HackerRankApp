@@ -1,22 +1,21 @@
 ﻿using System.Numerics;
 
-namespace HackerRankApp.Algorithm
+namespace HackerRankApp.Algorithm;
+
+/// <summary>
+/// https://www.hackerrank.com/challenges/extra-long-factorials/problem
+/// </summary>
+public static class ExtraLongFactorials
 {
-	/// <summary>
-	/// https://www.hackerrank.com/challenges/extra-long-factorials/problem
-	/// </summary>
-	public static class ExtraLongFactorials
+	public static BigInteger CalculateResult(int n)
 	{
-		public static BigInteger CalculateResult(int n)
-		{
-			return Calculate(n);
-		}
+		return Calculate(n);
+	}
 
-		private static BigInteger Calculate(int n)
-		{
-			if (n == 1) return BigInteger.One;
+	private static BigInteger Calculate(int n)
+	{
+		if (n == 1) return BigInteger.One;
 
-			return Calculate(n - 1) * new BigInteger(n);
-		}
+		return Calculate(n - 1) * new BigInteger(n);
 	}
 }

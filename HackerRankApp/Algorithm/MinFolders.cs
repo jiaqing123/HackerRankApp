@@ -1,33 +1,112 @@
-﻿namespace HackerRankApp.Algorithm
+﻿namespace HackerRankApp.Algorithm;
+
+public static class MinFolders
 {
-	public static class MinFolders
+	public static int Run(int cssFiles, int jsFiles, int readMeFiles, int capacity)
 	{
-		public static int Run(int cssFiles, int jsFiles, int readMeFiles, int capacity)
+		// cssFiles, jsFiles. if none other, 1. if there are jsFiles+1/cssFiles+1
+
+		// readMeFiles: 0,1
+
+		// if readMeFiles[0-1], cssFiles:[0-2], jsFiles: [0-2]
+
+		// capacity: readMeFiles+cssFiles+jsFiles
+
+		var halfCapacity = capacity / 2;
+		var isEvenCapacity = capacity % 2 == 0;
+
+		if (halfCapacity == 0)
 		{
-			// cssFiles, jsFiles. if none other, 1. if there are jsFiles+1/cssFiles+1
+			return cssFiles + jsFiles + readMeFiles;
+		}
 
-			// readMeFiles: 0,1
+		if (readMeFiles == 0)
+		{
+			var larger = Math.Max(cssFiles, jsFiles);
+			var smaller = Math.Min(cssFiles, jsFiles);
 
-			// if readMeFiles[0-1], cssFiles:[0-2], jsFiles: [0-2]
-
-			// capacity: readMeFiles+cssFiles+jsFiles
-
-			var halfCapacity = capacity / 2;
-			var isEvenCapacity = capacity % 2 == 0;
-
-			if (halfCapacity == 0)
+			if (larger == smaller)
 			{
-				return cssFiles + jsFiles + readMeFiles;
+				return (int)Math.Ceiling((larger + smaller) / (double)capacity);
 			}
-
-			if (readMeFiles == 0)
+			else
 			{
-				var larger = Math.Max(cssFiles, jsFiles);
-				var smaller = Math.Min(cssFiles, jsFiles);
+				if (isEvenCapacity)
+				{
+					var common = (int)Math.Ceiling((smaller + smaller) / (double)capacity);
+
+					var largerLeft = larger - halfCapacity * common;
+
+					var isLastCommonFull = halfCapacity * common == smaller;
+					if (!isLastCommonFull)
+					{
+						largerLeft -= 1;
+					}
+
+					if (largerLeft > 0)
+					{
+						return common + largerLeft / 1;
+					}
+					else
+					{
+						return common;
+					}
+				}
+				else
+				{
+					var common = (int)Math.Ceiling((smaller + smaller) / (double)capacity);
+
+					var largerLeft = larger - (halfCapacity + 1) * common;
+
+					var isLastCommonFull = halfCapacity * common == smaller;
+					if (!isLastCommonFull)
+					{
+						largerLeft -= 1;
+					}
+
+					if (largerLeft > 0)
+					{
+						return common + largerLeft / 1;
+					}
+					else
+					{
+						return common;
+					}
+				}
+			}
+		}
+		else
+		{
+			var readmeFolders = readMeFiles;
+
+			var larger = Math.Max(cssFiles, jsFiles);
+			var smaller = Math.Min(cssFiles, jsFiles);
+
+			if (capacity == 2)
+			{
+				var diff = larger - smaller;
+
+				if (diff >= readMeFiles)
+				{
+					larger -= readMeFiles;
+				}
+				else
+				{
+					var moving = (readMeFiles - diff) / 2 + diff;
+
+					larger -= moving;
+					smaller -= readMeFiles - moving;
+
+					var tmpL = Math.Max(larger, smaller);
+					var tmpS = Math.Min(larger, smaller);
+
+					larger = tmpL;
+					smaller = tmpS;
+				}
 
 				if (larger == smaller)
 				{
-					return (int)Math.Ceiling((larger + smaller) / (double)capacity);
+					return readmeFolders + (int)Math.Ceiling((larger + smaller) / (double)capacity);
 				}
 				else
 				{
@@ -45,11 +124,11 @@
 
 						if (largerLeft > 0)
 						{
-							return common + largerLeft / 1;
+							return readmeFolders + common + largerLeft / 1;
 						}
 						else
 						{
-							return common;
+							return readmeFolders + common;
 						}
 					}
 					else
@@ -66,157 +145,77 @@
 
 						if (largerLeft > 0)
 						{
-							return common + largerLeft / 1;
+							return readmeFolders + common + largerLeft / 1;
 						}
 						else
 						{
-							return common;
+							return readmeFolders + common;
 						}
 					}
 				}
 			}
 			else
 			{
-				var readmeFolders = readMeFiles;
+				larger -= readMeFiles;
+				smaller -= readMeFiles;
 
-				var larger = Math.Max(cssFiles, jsFiles);
-				var smaller = Math.Min(cssFiles, jsFiles);
-
-				if (capacity == 2)
+				if (smaller <= 0)
 				{
-					var diff = larger - smaller;
-
-					if (diff >= readMeFiles)
+					if (larger > 0)
 					{
-						larger -= readMeFiles;
+						return readMeFiles + larger;
 					}
 					else
 					{
-						var moving = (readMeFiles - diff) / 2 + diff;
+						return readMeFiles;
+					}
+				}
 
-						larger -= moving;
-						smaller -= readMeFiles - moving;
+				if (larger == smaller)
+				{
+					return readMeFiles + (int)Math.Ceiling((larger + smaller) / (double)capacity);
+				}
 
-						var tmpL = Math.Max(larger, smaller);
-						var tmpS = Math.Min(larger, smaller);
+				if (isEvenCapacity)
+				{
+					var common = (int)Math.Ceiling((smaller + smaller) / (double)capacity);
 
-						larger = tmpL;
-						smaller = tmpS;
+					var largerLeft = larger - halfCapacity * common;
+
+					var isLastCommonFull = halfCapacity * common == smaller;
+					if (!isLastCommonFull)
+					{
+						largerLeft -= 1;
 					}
 
-					if (larger == smaller)
+					if (largerLeft > 0)
 					{
-						return readmeFolders + (int)Math.Ceiling((larger + smaller) / (double)capacity);
+						return readmeFolders + common + largerLeft / 1;
 					}
 					else
 					{
-						if (isEvenCapacity)
-						{
-							var common = (int)Math.Ceiling((smaller + smaller) / (double)capacity);
-
-							var largerLeft = larger - halfCapacity * common;
-
-							var isLastCommonFull = halfCapacity * common == smaller;
-							if (!isLastCommonFull)
-							{
-								largerLeft -= 1;
-							}
-
-							if (largerLeft > 0)
-							{
-								return readmeFolders + common + largerLeft / 1;
-							}
-							else
-							{
-								return readmeFolders + common;
-							}
-						}
-						else
-						{
-							var common = (int)Math.Ceiling((smaller + smaller) / (double)capacity);
-
-							var largerLeft = larger - (halfCapacity + 1) * common;
-
-							var isLastCommonFull = halfCapacity * common == smaller;
-							if (!isLastCommonFull)
-							{
-								largerLeft -= 1;
-							}
-
-							if (largerLeft > 0)
-							{
-								return readmeFolders + common + largerLeft / 1;
-							}
-							else
-							{
-								return readmeFolders + common;
-							}
-						}
+						return readmeFolders + common;
 					}
 				}
 				else
 				{
-					larger -= readMeFiles;
-					smaller -= readMeFiles;
+					var common = (int)Math.Ceiling((smaller + smaller) / (double)capacity);
 
-					if (smaller <= 0)
+					var largerLeft = larger - (halfCapacity + 1) * common;
+
+					var isLastCommonFull = halfCapacity * common == smaller;
+					if (!isLastCommonFull)
 					{
-						if (larger > 0)
-						{
-							return readMeFiles + larger;
-						}
-						else
-						{
-							return readMeFiles;
-						}
+						largerLeft -= 1;
 					}
 
-					if (larger == smaller)
+					if (largerLeft > 0)
 					{
-						return readMeFiles + (int)Math.Ceiling((larger + smaller) / (double)capacity);
-					}
-
-					if (isEvenCapacity)
-					{
-						var common = (int)Math.Ceiling((smaller + smaller) / (double)capacity);
-
-						var largerLeft = larger - halfCapacity * common;
-
-						var isLastCommonFull = halfCapacity * common == smaller;
-						if (!isLastCommonFull)
-						{
-							largerLeft -= 1;
-						}
-
-						if (largerLeft > 0)
-						{
-							return readmeFolders + common + largerLeft / 1;
-						}
-						else
-						{
-							return readmeFolders + common;
-						}
+						return readmeFolders + common + largerLeft / 1;
 					}
 					else
 					{
-						var common = (int)Math.Ceiling((smaller + smaller) / (double)capacity);
-
-						var largerLeft = larger - (halfCapacity + 1) * common;
-
-						var isLastCommonFull = halfCapacity * common == smaller;
-						if (!isLastCommonFull)
-						{
-							largerLeft -= 1;
-						}
-
-						if (largerLeft > 0)
-						{
-							return readmeFolders + common + largerLeft / 1;
-						}
-						else
-						{
-							return readmeFolders + common;
-						}
+						return readmeFolders + common;
 					}
 				}
 			}

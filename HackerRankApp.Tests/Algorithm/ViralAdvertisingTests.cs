@@ -1,16 +1,15 @@
-﻿namespace HackerRankApp.Tests.Algorithm
+﻿namespace HackerRankApp.Tests.Algorithm;
+
+public class ViralAdvertisingTests
 {
-	public class ViralAdvertisingTests
+	[Theory]
+	[ClassData(typeof(ViralAdvertisingTestData))]
+	public void GetTotalLikeds_InputValid_NotThrowException(int days, int expectation)
 	{
-		[Theory]
-		[ClassData(typeof(ViralAdvertisingTestData))]
-		public void GetTotalLikeds_InputValid_NotThrowException(int days, int expectation)
-		{
-			var handleTask = () => ViralAdvertising.GetTotalLikeds(days);
+		var handleTask = () => ViralAdvertising.GetTotalLikeds(days);
 
-			handleTask.Should().NotThrow()
-				.Which.Should().Be(expectation);
-		}
-
+		handleTask.Should().NotThrow()
+			.Which.Should().Be(expectation);
 	}
+
 }

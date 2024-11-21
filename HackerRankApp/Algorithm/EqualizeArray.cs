@@ -1,22 +1,21 @@
-﻿namespace HackerRankApp.Algorithm
+﻿namespace HackerRankApp.Algorithm;
+
+/// <summary>
+/// https://www.hackerrank.com/challenges/equality-in-a-array/problem
+/// </summary>
+public static class EqualizeArray
 {
-	/// <summary>
-	/// https://www.hackerrank.com/challenges/equality-in-a-array/problem
-	/// </summary>
-	public static class EqualizeArray
+	public static int Run(List<int> arr)
 	{
-		public static int Run(List<int> arr)
-		{
-			var numbers = arr.GroupBy(i => i)
-				.ToDictionary(i => i.Key, i => i.Count())
-				.OrderBy(i => i.Value)
-				.ToList();
+		var numbers = arr.GroupBy(i => i)
+			.ToDictionary(i => i.Key, i => i.Count())
+			.OrderBy(i => i.Value)
+			.ToList();
 
-			numbers.RemoveAt(numbers.Count - 1);
+		numbers.RemoveAt(numbers.Count - 1);
 
-			var count = numbers.Sum(i => i.Value);
+		var count = numbers.Sum(i => i.Value);
 
-			return count;
-		}
+		return count;
 	}
 }

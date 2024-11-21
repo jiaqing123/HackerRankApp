@@ -1,47 +1,46 @@
-﻿namespace HackerRankApp.Tests.Algorithm
+﻿namespace HackerRankApp.Tests.Algorithm;
+
+public class FlatlandSpaceStationsTests
 {
-	public class FlatlandSpaceStationsTests
+	[Fact]
+	public void Run_01()
 	{
-		[Fact]
-		public void Run_01()
-		{
-			int numberOfCities = 3;
-			int[] stationLocations = [1];
+		int numberOfCities = 3;
+		int[] stationLocations = [1];
 
-			int expectation = 1;
+		int expectation = 1;
 
-			var handleTask = () => FlatlandSpaceStations.Run(numberOfCities, stationLocations);
+		var handleTask = () => FlatlandSpaceStations.Run(numberOfCities, stationLocations);
 
-			handleTask.Should().NotThrow()
-				.Which.Should().Be(expectation);
-		}
+		handleTask.Should().NotThrow()
+			.Which.Should().Be(expectation);
+	}
 
-		[Fact]
-		public void Run_02()
-		{
-			int numberOfCities = 5;
-			int[] stationLocations = [0, 4];
+	[Fact]
+	public void Run_02()
+	{
+		int numberOfCities = 5;
+		int[] stationLocations = [0, 4];
 
-			int expectation = 2;
+		int expectation = 2;
 
-			var handleTask = () => FlatlandSpaceStations.Run(numberOfCities, stationLocations);
+		var handleTask = () => FlatlandSpaceStations.Run(numberOfCities, stationLocations);
 
-			handleTask.Should().NotThrow()
-				.Which.Should().Be(expectation);
-		}
+		handleTask.Should().NotThrow()
+			.Which.Should().Be(expectation);
+	}
 
-		[Fact]
-		public void Run_03()
-		{
-			int numberOfCities = 6;
-			int[] stationLocations = [0, 1, 2, 4, 3, 5];
+	[Fact]
+	public void Run_03()
+	{
+		int numberOfCities = 6;
+		int[] stationLocations = [0, 1, 2, 4, 3, 5];
 
-			int expectation = 0;
+		int expectation = 0;
 
-			var handleTask = () => FlatlandSpaceStations.Run(numberOfCities, stationLocations);
+		var handleTask = () => FlatlandSpaceStations.Run(numberOfCities, stationLocations);
 
-			handleTask.Should().NotThrow()
-				.Which.Should().Be(expectation);
-		}
+		handleTask.Should().NotThrow()
+			.Which.Should().Be(expectation);
 	}
 }

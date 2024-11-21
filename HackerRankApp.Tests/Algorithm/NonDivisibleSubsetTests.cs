@@ -1,15 +1,14 @@
-﻿namespace HackerRankApp.Tests.Algorithm
-{
-	public class NonDivisibleSubsetTests
-	{
-		[Theory]
-		[ClassData(typeof(NonDivisibleSubsetTestData))]
-		public void Run_InputValid_NotThrowException(int divisor, List<int> numbers, int expectation)
-		{
-			var handleTask = () => NonDivisibleSubset.Run(divisor, numbers);
+﻿namespace HackerRankApp.Tests.Algorithm;
 
-			handleTask.Should().NotThrow()
-				.Which.Should().Be(expectation);
-		}
+public class NonDivisibleSubsetTests
+{
+	[Theory]
+	[ClassData(typeof(NonDivisibleSubsetTestData))]
+	public void Run_InputValid_NotThrowException(int divisor, List<int> numbers, int expectation)
+	{
+		var handleTask = () => NonDivisibleSubset.Run(divisor, numbers);
+
+		handleTask.Should().NotThrow()
+			.Which.Should().Be(expectation);
 	}
 }

@@ -1,140 +1,139 @@
-﻿namespace HackerRankApp.Algorithm
+﻿namespace HackerRankApp.Algorithm;
+
+public class ZoneCounter
 {
-	public class ZoneCounter
+	private class AreaInfo
 	{
-		private class AreaInfo
+		public int Width { get; set; }
+
+		public int Length { get; set; }
+
+		public int[][] Areas { get; set; } = [];
+	}
+
+	private enum AreaTypes
+	{
+		Empty = 0,
+		Occupied = 1,
+	}
+
+	private class SearchResult
+	{
+		public AreaTypes? AreaType { get; set; }
+
+		public bool Searched { get; set; }
+	}
+
+	public int CountZones(int[][] areas)
+	{
+		var (width, length) = GetDimension(areas);
+
+		var searched = CreateSearchArea(width, length);
+
+		var areaInfo = new AreaInfo()
 		{
-			public int Width { get; set; }
+			Areas = areas,
+			Width = width,
+			Length = length,
+		};
 
-			public int Length { get; set; }
+		var count = 0;
 
-			public int[][] Areas { get; set; } = [];
-		}
-
-		private enum AreaTypes
+		for (int row = 0; row < length; row++)
 		{
-			Empty = 0,
-			Occupied = 1,
-		}
-
-		private class SearchResult
-		{
-			public AreaTypes? AreaType { get; set; }
-
-			public bool Searched { get; set; }
-		}
-
-		public int CountZones(int[][] areas)
-		{
-			var (width, length) = GetDimension(areas);
-
-			var searched = CreateSearchArea(width, length);
-
-			var areaInfo = new AreaInfo()
+			for (int col = 0; col < width; col++)
 			{
-				Areas = areas,
-				Width = width,
-				Length = length,
-			};
+				// if type=Occupied, increase by 1
+				var result = SearchArea(areaInfo, row, col, searched);
 
-			var count = 0;
-
-			for (int row = 0; row < length; row++)
-			{
-				for (int col = 0; col < width; col++)
+				if (result.AreaType == AreaTypes.Occupied)
 				{
-					// if type=Occupied, increase by 1
-					var result = SearchArea(areaInfo, row, col, searched);
-
-					if (result.AreaType == AreaTypes.Occupied)
-					{
-						count++;
-					}
+					count++;
 				}
 			}
-
-			return count;
 		}
 
-		private List<List<bool>> CreateSearchArea(int width, int length)
+		return count;
+	}
+
+	private List<List<bool>> CreateSearchArea(int width, int length)
+	{
+		var searched = new List<List<bool>>();
+
+		for (int i = 0; i < length; i++)
 		{
-			var searched = new List<List<bool>>();
+			var row = new List<bool>();
 
-			for (int i = 0; i < length; i++)
+			for (int j = 0; j < width; j++)
 			{
-				var row = new List<bool>();
-
-				for (int j = 0; j < width; j++)
-				{
-					row.Add(false);
-				}
-
-				searched.Add(row);
+				row.Add(false);
 			}
 
-			return searched;
+			searched.Add(row);
 		}
 
-		private AreaTypes GetAreaType(int row, int column, AreaInfo areaInfo)
+		return searched;
+	}
+
+	private AreaTypes GetAreaType(int row, int column, AreaInfo areaInfo)
+	{
+		var type = areaInfo.Areas[row][column];
+
+		var a = type - '0';
+
+		return (AreaTypes)a;
+	}
+
+	private (int, int) GetDimension(int[][] areas)
+	{
+		var width = areas.Length;
+		var height = 0;
+
+		if (areas.Length != 0)
 		{
-			var type = areaInfo.Areas[row][column];
-
-			var a = type - '0';
-
-			return (AreaTypes)a;
+			height = areas[0].Length;
 		}
 
-		private (int, int) GetDimension(int[][] areas)
+		return (width, height);
+	}
+
+	private SearchResult SearchArea(AreaInfo areaInfo, int row, int column, List<List<bool>> searched)
+	{
+		if (searched[row][column] == true)
 		{
-			var width = areas.Length;
-			var height = 0;
-
-			if (areas.Length != 0)
-			{
-				height = areas[0].Length;
-			}
-
-			return (width, height);
+			return new SearchResult { Searched = true };
 		}
-
-		private SearchResult SearchArea(AreaInfo areaInfo, int row, int column, List<List<bool>> searched)
+		else
 		{
-			if (searched[row][column] == true)
-			{
-				return new SearchResult { Searched = true };
-			}
-			else
-			{
-				searched[row][column] = true;
-			}
-
-			if (GetAreaType(row, column, areaInfo) == AreaTypes.Empty) return new SearchResult { AreaType = AreaTypes.Empty };
-
-			// search right
-			if (column + 1 < areaInfo.Width)
-			{
-				var result_right = SearchArea(areaInfo, row, column + 1, searched);
-			}
-
-			// search left
-			if (column - 1 >= 0)
-			{
-				var result_left = SearchArea(areaInfo, row, column - 1, searched);
-			}
-
-			// search down
-			if (row + 1 < areaInfo.Length)
-			{
-				var result_down = SearchArea(areaInfo, row + 1, column, searched);
-			}
-
-			// search up
-			if (row - 1 >= 0)
-			{
-				var result_up = SearchArea(areaInfo, row - 1, column, searched);
-			}
-
-			return new SearchResult { Searched = true, AreaType = AreaTypes.Occupied };
+			searched[row][column] = true;
 		}
+
+		if (GetAreaType(row, column, areaInfo) == AreaTypes.Empty) return new SearchResult { AreaType = AreaTypes.Empty };
+
+		// search right
+		if (column + 1 < areaInfo.Width)
+		{
+			var result_right = SearchArea(areaInfo, row, column + 1, searched);
+		}
+
+		// search left
+		if (column - 1 >= 0)
+		{
+			var result_left = SearchArea(areaInfo, row, column - 1, searched);
+		}
+
+		// search down
+		if (row + 1 < areaInfo.Length)
+		{
+			var result_down = SearchArea(areaInfo, row + 1, column, searched);
+		}
+
+		// search up
+		if (row - 1 >= 0)
+		{
+			var result_up = SearchArea(areaInfo, row - 1, column, searched);
+		}
+
+		return new SearchResult { Searched = true, AreaType = AreaTypes.Occupied };
 	}
 }

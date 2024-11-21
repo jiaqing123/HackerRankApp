@@ -1,41 +1,40 @@
-﻿namespace HackerRankApp.Algorithm
+﻿namespace HackerRankApp.Algorithm;
+
+/// <summary>
+/// https://www.hackerrank.com/challenges/lisa-workbook/problem?isFullScreen=true
+/// </summary>
+public static class LisasWorkbook
 {
-	/// <summary>
-	/// https://www.hackerrank.com/challenges/lisa-workbook/problem?isFullScreen=true
-	/// </summary>
-	public static class LisasWorkbook
+	public static int Run(int chapterCount, int maxPageProblemCount, List<int> chapterProblemCounts)
 	{
-		public static int Run(int chapterCount, int maxPageProblemCount, List<int> chapterProblemCounts)
+		var specialProblemCount = 0;
+		var startingPage = 1;
+
+		for (int chapterNumber = 1; chapterNumber <= chapterCount; chapterNumber++)
 		{
-			var specialProblemCount = 0;
-			var startingPage = 1;
+			var maxChapterProblemNumber = chapterProblemCounts[chapterNumber - 1];
 
-			for (int chapterNumber = 1; chapterNumber <= chapterCount; chapterNumber++)
+			var chapterPages = (int)Math.Ceiling(maxChapterProblemNumber / (double)maxPageProblemCount);
+
+			for (int pageIndex = 0; pageIndex < chapterPages; pageIndex++)
 			{
-				var maxChapterProblemNumber = chapterProblemCounts[chapterNumber - 1];
+				var pageNumber = startingPage + pageIndex;
 
-				var chapterPages = (int)Math.Ceiling(maxChapterProblemNumber / (double)maxPageProblemCount);
+				var pageProblemStartNumber = 1 + maxPageProblemCount * pageIndex;
 
-				for (int pageIndex = 0; pageIndex < chapterPages; pageIndex++)
+				var pageProblemEndNumber = maxPageProblemCount * (pageIndex + 1);
+				if (pageProblemEndNumber > maxChapterProblemNumber) pageProblemEndNumber = maxChapterProblemNumber;
+
+				if (pageProblemStartNumber <= pageNumber && pageNumber <= pageProblemEndNumber)
 				{
-					var pageNumber = startingPage + pageIndex;
-
-					var pageProblemStartNumber = 1 + maxPageProblemCount * pageIndex;
-
-					var pageProblemEndNumber = maxPageProblemCount * (pageIndex + 1);
-					if (pageProblemEndNumber > maxChapterProblemNumber) pageProblemEndNumber = maxChapterProblemNumber;
-
-					if (pageProblemStartNumber <= pageNumber && pageNumber <= pageProblemEndNumber)
-					{
-						specialProblemCount++;
-					}
+					specialProblemCount++;
 				}
-
-				startingPage += chapterPages;
 			}
 
-			// number of special maxChapterProblemNumber
-			return specialProblemCount;
+			startingPage += chapterPages;
 		}
+
+		// number of special maxChapterProblemNumber
+		return specialProblemCount;
 	}
 }

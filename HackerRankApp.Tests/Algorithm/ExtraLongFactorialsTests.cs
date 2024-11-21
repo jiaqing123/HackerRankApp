@@ -1,17 +1,16 @@
 ﻿using System.Numerics;
 
-namespace HackerRankApp.Tests.Algorithm
-{
-	public class ExtraLongFactorialsTests
-	{
-		[Theory]
-		[ClassData(typeof(ExtraLongFactorialsTestData))]
-		public void CalculateResult_InputValid_NotThrowException(int number, BigInteger expectation)
-		{
-			var handleTask = () => ExtraLongFactorials.CalculateResult(number);
+namespace HackerRankApp.Tests.Algorithm;
 
-			handleTask.Should().NotThrow()
-				.Which.Should().BeEquivalentTo(expectation);
-		}
+public class ExtraLongFactorialsTests
+{
+	[Theory]
+	[ClassData(typeof(ExtraLongFactorialsTestData))]
+	public void CalculateResult_InputValid_NotThrowException(int number, BigInteger expectation)
+	{
+		var handleTask = () => ExtraLongFactorials.CalculateResult(number);
+
+		handleTask.Should().NotThrow()
+			.Which.Should().BeEquivalentTo(expectation);
 	}
 }

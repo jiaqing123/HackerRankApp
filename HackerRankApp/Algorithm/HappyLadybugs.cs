@@ -1,97 +1,96 @@
-﻿namespace HackerRankApp.Algorithm
+﻿namespace HackerRankApp.Algorithm;
+
+/// <summary>
+/// https://www.hackerrank.com/challenges/happy-ladybugs/problem
+/// </summary>
+public static class HappyLadybugs
 {
-	/// <summary>
-	/// https://www.hackerrank.com/challenges/happy-ladybugs/problem
-	/// </summary>
-	public static class HappyLadybugs
+	private class ColorGroup
 	{
-		private class ColorGroup
+		public char Color { get; init; }
+
+		public List<int> Items { get; init; } = [];
+
+		public List<int> WaitingItems { get; init; } = [];
+
+		public void ProcessWaitings()
 		{
-			public char Color { get; init; }
-
-			public List<int> Items { get; init; } = [];
-
-			public List<int> WaitingItems { get; init; } = [];
-
-			public void ProcessWaitings()
+			if (WaitingItems.Count > 0)
 			{
-				if (WaitingItems.Count > 0)
-				{
-					Items.AddRange(WaitingItems);
+				Items.AddRange(WaitingItems);
 
-					WaitingItems.Clear();
-				}
+				WaitingItems.Clear();
 			}
 		}
+	}
 
-		private const string Yes = "YES";
-		private const string No = "NO";
+	private const string Yes = "YES";
+	private const string No = "NO";
 
-		public static string Run(string initial)
+	public static string Run(string initial)
+	{
+		Dictionary<char, ColorGroup> colors = [];
+		Dictionary<char, ColorGroup> waitingColors = [];
+		bool spaceAvailable = false;
+
+		for (int i = 0; i < initial.Length; i++)
 		{
-			Dictionary<char, ColorGroup> colors = [];
-			Dictionary<char, ColorGroup> waitingColors = [];
-			bool spaceAvailable = false;
+			var color = initial[i];
 
-			for (int i = 0; i < initial.Length; i++)
+			if (color == '_')
 			{
-				var color = initial[i];
+				spaceAvailable = true;
 
-				if (color == '_')
+				if (waitingColors.Count > 0)
 				{
-					spaceAvailable = true;
-
-					if (waitingColors.Count > 0)
+					foreach (var colorGroup in waitingColors)
 					{
-						foreach (var colorGroup in waitingColors)
-						{
-							colorGroup.Value.ProcessWaitings();
-						}
-
-						waitingColors.Clear();
+						colorGroup.Value.ProcessWaitings();
 					}
+
+					waitingColors.Clear();
 				}
-				else if (colors.TryGetValue(color, out var colorGroup))
+			}
+			else if (colors.TryGetValue(color, out var colorGroup))
+			{
+				if (colorGroup.Items[^1] == i - 1)
 				{
-					if (colorGroup.Items[^1] == i - 1)
-					{
-						colorGroup.Items.Add(i);
-					}
-					else if (spaceAvailable)
-					{
-						colorGroup.ProcessWaitings();
+					colorGroup.Items.Add(i);
+				}
+				else if (spaceAvailable)
+				{
+					colorGroup.ProcessWaitings();
 
-						waitingColors.Remove(color);
+					waitingColors.Remove(color);
 
-						colorGroup.Items.Add(i);
-					}
-					else
-					{
-						colorGroup.WaitingItems.Add(i);
-
-						waitingColors.TryAdd(color, colorGroup);
-					}
+					colorGroup.Items.Add(i);
 				}
 				else
 				{
-					colors.Add(color, new ColorGroup
-					{
-						Color = color,
-						Items = [i]
-					});
+					colorGroup.WaitingItems.Add(i);
+
+					waitingColors.TryAdd(color, colorGroup);
 				}
 			}
-
-			if (colors.Any(i => i.Value.WaitingItems.Count > 0))
+			else
 			{
-				return No;
+				colors.Add(color, new ColorGroup
+				{
+					Color = color,
+					Items = [i]
+				});
 			}
-			else if (colors.Any(i => i.Value.Items.Count == 1))
-			{
-				return No;
-			}
-
-			return Yes;
 		}
+
+		if (colors.Any(i => i.Value.WaitingItems.Count > 0))
+		{
+			return No;
+		}
+		else if (colors.Any(i => i.Value.Items.Count == 1))
+		{
+			return No;
+		}
+
+		return Yes;
 	}
 }

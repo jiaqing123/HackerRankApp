@@ -1,15 +1,14 @@
-﻿namespace HackerRankApp.Tests.Algorithm
+﻿namespace HackerRankApp.Tests.Algorithm;
+
+public class DegreeOfArrayTests
 {
-	public class DegreeOfArrayTests
+	[Fact]
+	public void Run_01()
 	{
-		[Fact]
-		public void Run_01()
-		{
-			var arr = new List<int> { 5, 1, 2, 2, 3, 1 };
+		var arr = new List<int> { 5, 1, 2, 2, 3, 1 };
 
-			var result = DegreeOfArray.Run(arr);
+		var result = DegreeOfArray.Run(arr);
 
-			result.Should().Be(2);
-		}
+		result.Should().Be(2);
 	}
 }

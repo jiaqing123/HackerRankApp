@@ -1,23 +1,22 @@
-﻿namespace HackerRankApp.Tests.TestData
+﻿namespace HackerRankApp.Tests.TestData;
+
+public class EnglishTextEncryptionTestData : TheoryData<string, string>
 {
-	public class EnglishTextEncryptionTestData : TheoryData<string, string>
+	public EnglishTextEncryptionTestData()
 	{
-		public EnglishTextEncryptionTestData()
-		{
-			Add("",
-				"");
+		Add("",
+			"");
 
-			Add("if man was meant to stay on the ground god would have given us roots",
-				"imtgdvs fearwer mayoogo anouuio ntnnlvt wttddes aohghn sseoau");
+		Add("if man was meant to stay on the ground god would have given us roots",
+			"imtgdvs fearwer mayoogo anouuio ntnnlvt wttddes aohghn sseoau");
 
-			Add("have a nice day",
-				"hae and via ecy");
+		Add("have a nice day",
+			"hae and via ecy");
 
-			Add("feed the dog",
-				"fto ehg ee dd");
+		Add("feed the dog",
+			"fto ehg ee dd");
 
-			Add("chill out",
-				"clu hlt io");
-		}
+		Add("chill out",
+			"clu hlt io");
 	}
 }

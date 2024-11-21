@@ -1,15 +1,14 @@
-﻿namespace HackerRankApp.Tests.Algorithm
-{
-	public class BeautifulTripletsTests
-	{
-		[Theory]
-		[ClassData(typeof(BeautifulTripletsTestData))]
-		public void Run01(int diff, List<int> arr, int expectation)
-		{
-			var handleTask = () => BeautifulTriplets.Run(diff, arr);
+﻿namespace HackerRankApp.Tests.Algorithm;
 
-			handleTask.Should().NotThrow()
-				.Which.Should().Be(expectation);
-		}
+public class BeautifulTripletsTests
+{
+	[Theory]
+	[ClassData(typeof(BeautifulTripletsTestData))]
+	public void Run01(int diff, List<int> arr, int expectation)
+	{
+		var handleTask = () => BeautifulTriplets.Run(diff, arr);
+
+		handleTask.Should().NotThrow()
+			.Which.Should().Be(expectation);
 	}
 }

@@ -1,17 +1,16 @@
-﻿namespace HackerRankApp.Tests.Algorithm
+﻿namespace HackerRankApp.Tests.Algorithm;
+
+public class MinimumDistancesTests
 {
-	public class MinimumDistancesTests
+	[Fact]
+	public void Run_01()
 	{
-		[Fact]
-		public void Run_01()
-		{
-			List<int> arr = [3, 2, 1, 2, 3];
-			int expection = 2;
+		List<int> arr = [3, 2, 1, 2, 3];
+		int expection = 2;
 
-			var handleTask = () => MinimumDistances.Run(arr);
+		var handleTask = () => MinimumDistances.Run(arr);
 
-			handleTask.Should().NotThrow()
-				.Which.Should().Be(expection);
-		}
+		handleTask.Should().NotThrow()
+			.Which.Should().Be(expection);
 	}
 }
